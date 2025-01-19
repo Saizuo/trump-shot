@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html { height:100%; overflow:hidden; }
+            body {
+                height:100%;
+                margin:0;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #bdaa90;
+                user-select: none;
+                -moz-user-select: none;
+                -webkit-user-select: none;    
+                position:relative;     
+                overflow:hidden;
+            }
+            body::before {
+                  content: "";
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  top: 0;
+                  left: 0;
+                  z-index: -1;
+                  background-image: url("bg.png");;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+            }
+
+            .title {
+                margin: 1.5em 0 0 0;
+                width: min(600px, 90%);
+                height: auto;
+                object-fit: contain;
+            }
+              .cat-img {
+                  height: 0;
+                  flex-grow: 1;
+                  width: 100%;
+                  max-width: 800px;
+                  background-position: bottom;
+                  background-size: contain;
+                  background-repeat: no-repeat;
+                  touch-action: manipulation;
+                  text-align: center;
+                  color: white;
+                  -webkit-text-stroke-width: 3px;
+                  -webkit-text-stroke-color: black;
+                  font-weight: 900;
+                  font-size: 80px;
+                  font-family: 'Nunito', sans-serif;
+                  word-wrap: break-word;
+                  margin-bottom: 0; /* Changed from 4vh to 0 */
+              }
+                /* Updated button container styles */
+                .button-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 3vw;
+                    margin-bottom: 0; /* Changed from 4vh to 0 */
+                    width: 100%;
+                    max-width: 800px;
+                    padding: 0 4vw;
+                    box-sizing: border-box;
+                    margin-top: -2vh; /* Added negative margin to move buttons up */
+                }
+
+            /* Updated button styles */
+            .button-link {
+                display: block;
+                width: 30%;
+                max-width: 200px;
+                min-width: 100px;
+            }
+
+            .button-img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+                transition: transform 0.2s;
+            }
+
+            .button-img:hover {
+                transform: scale(1.05);
+            }
+
+            /* Responsive breakpoints */
+            @media (min-width: 1000px) {
+                .title {
+                    width: min(400px, 80%);                    
+                }
+                .cat-img {
+                    font-size: 40px;
+                    -webkit-text-stroke-width: 1.5px;
+                }
+                .button-link {
+                    width: 180px;
+                }
+                .button-container {
+                    gap: 30px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .button-container {
+                    padding: 0 3vw;
+                    gap: 2.5vw;
+                }
+                .button-link {
+                    width: 32%;
+                    min-width: 90px;
+                }
+                .title {
+                    margin-top: 1em;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .button-container {
+                    padding: 0 3vw;
+                    gap: 2vw;
+                    margin-bottom: 3vh;
+                }
+                .button-link {
+                    width: 33%;
+                    min-width: 85px;
+                }
+                .cat-img {
+                    margin-bottom: 3vh;
+                }
+            }
+
+            #p { background-image: url("1.png"); }
+            #op { background-image: url("2.png"); }
+            #p, #op {
+                background-size: 700px auto;
+                background-position: bottom center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <img class="title" src="https://media.discordapp.net/attachments/1147887838495522978/1305572890019627120/cooltext469838356241339.gif?ex=67338501&is=67323381&hm=4143603d1ebaaba71a2adfa9fb6b5a4c7bbbd08eb596cb40649ec656f2b37cdd&=" alt="POPCAT" style="width: 100%; max-width: 1000px; height: auto;">
+        
+        <div class="button-container">
+            <a href="https://t.me/" target="_blank" class="button-link">
+                <img src="https://pic.surf/iy" alt="Button 1" class="button-img">
+            </a>
+            <a href="https://x.com/" target="_blank" class="button-link">
+                <img src="https://pic.surf/75d" alt="Button 2" class="button-img">
+            </a>
+            <a href="https://pump.fun/coin/4qdsfL3TpqCuSN7Uj4g5BHh8ZL7SK7tdJ9YnJDwCpumpg " target="_blank" class="button-link">
+                <img src="https://pic.surf/lq" alt="Button 3" class="button-img">
+            </a>
+        </div>
+
+        <div class="cat-img" id="p"></div>
+    </body>        <script>
+            /*Preloading alternate cat image*/
+            preload = new Image();
+            preload.src = "imgs/op.png";
+
+            /*Cat elem*/
+            cat = document.getElementById("p")
+
+            /*Pop mp3s*/
+            pops = [
+                "pops/pop1.mp3",
+                "pops/pop2.mp3",
+                "pops/pop3.mp3",
+                "pops/pop4.mp3",
+            ]
+            pop_i = 0
+            
+            /*Cookie utils*/
+            function getCookie(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            pop_count = getCookie("pop_count")
+            cat.innerHTML = pop_count > 0 ? pop_count : ""
+
+            op_func = function(){ 
+                /*Chance cat image to op.jpg via css*/
+                cat.id = "op"
+
+                /*Play pop noise*/
+                a = new Audio(pops[pop_i])
+                a.load()
+                a.play()
+
+                /*Increment index for next pop noise*/
+                pop_i = (pop_i+1)%pops.length
+
+                /*Increment pop count*/
+                pop_count++
+                cat.innerHTML = pop_count
+                setCookie("pop_count",pop_count,365)
+
+                /*Fire google analytics event for pop*/
+                // gtag('event', 'pop');
+            }
+            p_func = () => setTimeout(() => cat.id = "p", 25)
+
+            document.addEventListener("pointerup", p_func)
+            document.addEventListener("keyup", p_func)
+            document.addEventListener("pointerdown", op_func)
+            document.addEventListener("keydown", op_func)
+        </script>        
+    </body>
+</html>
